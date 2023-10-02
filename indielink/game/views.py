@@ -1,8 +1,13 @@
 # game/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from .forms import GameForm, GenreSearchForm
 from .models import Game, Genre
+=======
+from .forms import GameForm
+from .models import Game
+>>>>>>> 0d8ef7b (Adds user game entries, display and delete)
 
 @login_required
 def create_game(request):
@@ -12,7 +17,10 @@ def create_game(request):
             game = form.save(commit=False)
             game.user = request.user
             game.save()
+<<<<<<< HEAD
             form.save_m2m()
+=======
+>>>>>>> 0d8ef7b (Adds user game entries, display and delete)
             return redirect('game_list')  # Redirect to 'game_list'
     else:
         form = GameForm()
@@ -25,6 +33,7 @@ def game_list(request):
     games = Game.objects.all()
     return render(request, 'game/game_list.html', {'games': games})
 
+<<<<<<< HEAD
 def genre_search(request):
     if request.method == 'POST':
         if("search" in request.POST):
@@ -41,6 +50,8 @@ def genre_search(request):
         search_form = GenreSearchForm()
         return render(request, 'game/genre_search.html', {'search_form': search_form})
 
+=======
+>>>>>>> 0d8ef7b (Adds user game entries, display and delete)
 @login_required
 def game_detail(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
@@ -49,4 +60,8 @@ def game_detail(request, game_id):
 def delete_games(request):
     # Delete all games associated with the currently logged-in user
     Game.objects.filter(user=request.user).delete()
+<<<<<<< HEAD
     return redirect('game_list')
+=======
+    return redirect('game_list')
+>>>>>>> 0d8ef7b (Adds user game entries, display and delete)
