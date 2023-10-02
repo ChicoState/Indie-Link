@@ -46,23 +46,36 @@
   </style>
 </head>
 <body>
-  {% if user.is_authenticated %}
-  <div class="container">
-    <h1>Welcome, {{user.username}}!</h1>
-    <div class="button-container">
-      <a class="nav-link" href="/logout/">Logout</a>
-      <a class="nav-link" href="/game_list/">Game List</a>
+<body>
+    <div class="container">  
+        <h2>Game List</h2>
+
+        {% for game in games %}
+            <p>{{ game.name }}</p>
+            <!-- Add other game details as needed -->
+
+            <!-- Button to view game details -->
+            <button onclick="location.href='{% url 'game_detail' game.id %}'">View Details</button>
+
+            <hr>
+
+        {% endfor %}
+
+        <button onclick="location.href='/create_game/'">Create a Game</button>
+
+        <!-- Button to delete all games for the logged-in user -->
+        <form method="post" action="{% url 'delete_games' %}">
+            {% csrf_token %}
+            <input type="submit" value="Delete my Games">
+        </form>
+
+        <br>
+
+        <!-- Button to go back to the main page -->
+        <button onclick="location.href='/'">Home</button>
+
+        </body>
     </div>
-  </div>
-  {% else %}
-  <div class="container">
-    <h1>Welcome to Indie-Link</h1>
-    <p> Keep Up With the Latest Indie Games! Join Our Community Today! </p>
-    <div class="button-container">
-      <a class="nav-link" href="/login/">Login</a>
-      <a class="nav-link" href="/signup/">Sign Up</a>
-    </div>
-  </div>
-  {% endif %}
-</body>
 </html>
+
+

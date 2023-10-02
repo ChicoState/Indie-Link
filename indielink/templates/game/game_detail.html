@@ -46,23 +46,19 @@
   </style>
 </head>
 <body>
-  {% if user.is_authenticated %}
-  <div class="container">
-    <h1>Welcome, {{user.username}}!</h1>
-    <div class="button-container">
-      <a class="nav-link" href="/logout/">Logout</a>
-      <a class="nav-link" href="/game_list/">Game List</a>
+<body>
+    <div class="container">  
+        <h2>{{ game.name }} </h2>
+        
+        <p>Genre: {{ game.genre }}</p>
+        <p>Description: {{ game.description }}</p>
+        
+        <p>Created by: {{ game.user.username }}</p>
+
+        <!-- Add more details as needed -->
+
+
+        <button onclick="location.href='/'">Home</button>
     </div>
-  </div>
-  {% else %}
-  <div class="container">
-    <h1>Welcome to Indie-Link</h1>
-    <p> Keep Up With the Latest Indie Games! Join Our Community Today! </p>
-    <div class="button-container">
-      <a class="nav-link" href="/login/">Login</a>
-      <a class="nav-link" href="/signup/">Sign Up</a>
-    </div>
-  </div>
-  {% endif %}
 </body>
 </html>
