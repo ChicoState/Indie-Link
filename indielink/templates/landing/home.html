@@ -2,16 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <title>Landing Page</title>
+  <style>
+    body {
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-image: url("https://static1.colliderimages.com/wordpress/wp-content/uploads/2021/07/indie-games.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .button-container {
+      margin-top: 20px;
+      text-align: center; /* Center the buttons */
+    }
+
+    .button-container a {
+      display: inline-block; /* Make the buttons inline */
+      width: 150px;
+      padding: 10px;
+      text-align: center;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .button-container a:last-child {
+      margin-bottom: 0;
+    }
+  </style>
 </head>
 <body>
-  <p> PLACEHOLDER TEXT. This is the landing page </p>
   {% if user.is_authenticated %}
-    <p> You are logged in as {{user.username}} </p>
-    <a class="nav-link" href="/logout/">Logout</a>
+  <div class="container">
+    <h1>Welcome, {{user.username}}!</h1>
+    <div class="button-container">
+      <a class="nav-link" href="/logout/">Logout</a>
+      <a class="nav-link" href="/">Create A Page</a>
+    </div>
+  </div>
   {% else %}
-    <p> You are not logged in </p>
-    <a class="nav-link" href="/signup/">Create Account</a>
-    <a class="nav-link" href="/login/">Login</a>
+  <div class="container">
+    <h1>Welcome to Indie-Link</h1>
+    <p> Keep Up With the Latest Indie Games! Join Our Community Today! </p>
+    <div class="button-container">
+      <a class="nav-link" href="/login/">Login</a>
+      <a class="nav-link" href="/signup/">Sign Up</a>
+    </div>
+  </div>
   {% endif %}
-
 </body>
+</html>
