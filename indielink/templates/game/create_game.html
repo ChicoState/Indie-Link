@@ -46,23 +46,35 @@
   </style>
 </head>
 <body>
-  {% if user.is_authenticated %}
-  <div class="container">
-    <h1>Welcome, {{user.username}}!</h1>
-    <div class="button-container">
-      <a class="nav-link" href="/logout/">Logout</a>
-      <a class="nav-link" href="/game_list/">Game List</a>
-    </div>
-  </div>
-  {% else %}
-  <div class="container">
-    <h1>Welcome to Indie-Link</h1>
-    <p> Keep Up With the Latest Indie Games! Join Our Community Today! </p>
-    <div class="button-container">
-      <a class="nav-link" href="/login/">Login</a>
-      <a class="nav-link" href="/signup/">Sign Up</a>
-    </div>
-  </div>
-  {% endif %}
+<body>
+    <div class="container">  
+        <p>Game Entry:</p>
+        <form method="POST">
+            {% csrf_token %}
+            
+            {{ game_form.non_field_errors }}
+            
+            <div class="form-group">
+            {{ game_form.name.label_tag }}
+            {{ game_form.name }}
+            {{ game_form.name.errors }}
+            </div>
+
+            <div class="form-group">
+            {{ game_form.genre.label_tag }}
+            {{ game_form.genre }}
+            {{ game_form.genre.errors }}
+            </div>
+
+            <div class="form-group">
+            {{ game_form.description.label_tag }}
+            {{ game_form.description }}
+            {{ game_form.description.errors }}
+            </div>
+        </div>
+
+    <input type="submit" value="Create Game"/>
+  </form>
 </body>
 </html>
+
