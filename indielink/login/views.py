@@ -30,19 +30,7 @@ def user_login(request):
                 login(request, user)
                 return redirect("/")
             else:
-<<<<<<< HEAD
-                page_data = {"login_form": LoginForm()}
-                return render(request, 'login/user_login.html', page_data)
-    else:
-        page_data = {"login_form": LoginForm()}
-        return render(request, 'login/user_login.html', page_data)
-=======
-                return render(request, 'login/user_login.html', {"login_form": LoginForm})
-    else:
-        return render(request, 'login/user_login.html', {"login_form": LoginForm})
->>>>>>> 0d8ef7b (Adds user game entries, display and delete)
 
 def user_logout(request):
     logout(request)
     return redirect("/")
-
