@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Landing Page</title>
   <style>
     body {
       display: flex;
@@ -46,38 +45,20 @@
   </style>
 </head>
 <body>
-<body>
-    <div class="container">
-        <h2>Game List</h2>
+  <div class="container">
+      <p>Select Genre:</p>
+      <form method="POST">
+          {% csrf_token %}
 
-        {% for game in games %}
-            <p>{{ game.name }}</p>
-            <!-- Add other game details as needed -->
+          {{ search_form.non_field_errors }}
 
-            <!-- Button to view game details -->
-            <button onclick="location.href='{% url 'game_detail' game.id %}'">View Details</button>
-
-            <hr>
-
-        {% endfor %}
-
-        <button onclick="location.href='/create_game/'">Create a Game</button>
-        <div>
-          <button onclick="location.href='/search/'">Search By Genre</button>
-        </div>        
-
-        <br>
-        <!-- Button to delete all games for the logged-in user -->
-        <form method="post" action="{% url 'delete_games' %}">
-            {% csrf_token %}
-            <input type="submit" value="Delete my Games">
-        </form>
-
-        <br>
-
-        <!-- Button to go back to the main page -->
-        <button onclick="location.href='/'">Home</button>
-
-        </body>
+          <div class="form-group">
+          {{ search_form.genre.label_tag }}
+          {{ search_form.genre }}
+          {{ search_form.genre.errors }}
+          </div>
+          <br>
+          <input type="submit" class="btn btn-primary" name="search" value="Search">
     </div>
+</body>
 </html>

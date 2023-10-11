@@ -47,12 +47,16 @@
 </head>
 <body>
 <body>
-    <div class="container">  
+    <div class="container">
         <h2>{{ game.name }} </h2>
-        
-        <p>Genre: {{ game.genre }}</p>
+
+        <p>Genres:
+        {% for genre in game.genre.all %}
+          {{ genre.name }}
+        {% endfor %}
+        </p>
         <p>Description: {{ game.description }}</p>
-        
+
         <p>Created by: {{ game.user.username }}</p>
 
         <!-- Add more details as needed -->

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Landing Page</title>
+  <title>Search Results</title>
   <style>
     body {
       display: flex;
@@ -48,7 +48,7 @@
 <body>
 <body>
     <div class="container">
-        <h2>Game List</h2>
+        <h2>Games in the {{ genre.name }} Genre</h2>
 
         {% for game in games %}
             <p>{{ game.name }}</p>
@@ -61,23 +61,13 @@
 
         {% endfor %}
 
-        <button onclick="location.href='/create_game/'">Create a Game</button>
-        <div>
-          <button onclick="location.href='/search/'">Search By Genre</button>
-        </div>        
-
-        <br>
-        <!-- Button to delete all games for the logged-in user -->
-        <form method="post" action="{% url 'delete_games' %}">
-            {% csrf_token %}
-            <input type="submit" value="Delete my Games">
-        </form>
+        <button onclick="location.href='/search/'">New Search</button>
 
         <br>
 
         <!-- Button to go back to the main page -->
         <button onclick="location.href='/'">Home</button>
-
-        </body>
     </div>
+
+</body>
 </html>
