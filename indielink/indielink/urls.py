@@ -30,5 +30,5 @@ urlpatterns = [
     path('create_game/', game_views.create_game),
     path('game_list/', game_views.game_list),
     path('', include(game_urls)),
+    path('search/', game_views.genre_search)
 ]
-
