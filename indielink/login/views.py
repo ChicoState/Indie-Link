@@ -30,6 +30,11 @@ def user_login(request):
                 login(request, user)
                 return redirect("/")
             else:
+                page_data = {"login_form": LoginForm()}
+                return render(request, 'login/user_login.html', page_data)
+    else:
+        page_data = {"login_form": LoginForm()}
+        return render(request, 'login/user_login.html', page_data)
 
 def user_logout(request):
     logout(request)

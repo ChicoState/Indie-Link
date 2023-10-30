@@ -30,9 +30,6 @@ urlpatterns = [
     path('create_game/', game_views.create_game),
     path('game_list/', game_views.game_list),
     path('', include(game_urls)),
-<<<<<<< HEAD
     path('search/', game_views.genre_search)
-=======
->>>>>>> 0d8ef7b (Adds user game entries, display and delete)
 ]
 
