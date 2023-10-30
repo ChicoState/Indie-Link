@@ -1,5 +1,4 @@
 from django import forms
-<<<<<<< HEAD
 from .models import Game, Genre
 
 # Comment out genres, migrate, uncomment
@@ -17,11 +16,3 @@ class GameForm(forms.ModelForm):
 
 class GenreSearchForm(forms.Form):
     genre = forms.ChoiceField(choices = genres)
-=======
-from .models import Game
-
-class GameForm(forms.ModelForm):
-    class Meta:
-        model = Game
-        fields = ['name', 'genre', 'description']
->>>>>>> 0d8ef7b (Adds user game entries, display and delete)
