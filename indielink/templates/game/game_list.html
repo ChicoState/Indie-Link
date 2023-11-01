@@ -47,11 +47,7 @@
 </head>
 <body>
 <body>
-<<<<<<< HEAD
     <div class="container">
-=======
-    <div class="container">  
->>>>>>> 0d8ef7b (Adds user game entries, display and delete)
         <h2>Game List</h2>
 
         {% for game in games %}
@@ -66,15 +62,11 @@
         {% endfor %}
 
         <button onclick="location.href='/create_game/'">Create a Game</button>
-<<<<<<< HEAD
         <div>
           <button onclick="location.href='/search/'">Search By Genre</button>
         </div>        
 
         <br>
-=======
-
->>>>>>> 0d8ef7b (Adds user game entries, display and delete)
         <!-- Button to delete all games for the logged-in user -->
         <form method="post" action="{% url 'delete_games' %}">
             {% csrf_token %}
@@ -89,8 +81,3 @@
         </body>
     </div>
 </html>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 0d8ef7b (Adds user game entries, display and delete)
