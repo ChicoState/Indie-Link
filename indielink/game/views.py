@@ -7,7 +7,7 @@ from .models import Game, Genre
 @login_required
 def create_game(request):
     if request.method == 'POST':
-        form = GameForm(request.POST)
+        form = GameForm(request.POST,request.FILES)
         if form.is_valid():
             game = form.save(commit=False)
             game.user = request.user

@@ -46,9 +46,8 @@
   </style>
 </head>
 <body>
-<body>
     <div class="container">
-        <h2>{{ game.name }} </h2>
+        <h2>{{ game.name }}</h2>
 
         <p>Genres:
         {% for genre in game.genre.all %}
@@ -59,8 +58,14 @@
 
         <p>Created by: {{ game.user.username }}</p>
 
-        <!-- Add more details as needed -->
+        <!-- Display the cover image -->
+        {% if game.cover_image %}
+          <img src="{{ game.cover_image.url }}" alt="Game Cover Image" style="max-width:600px;width:100%">
+        {% else %}
+          <p>No cover image available.</p>
+        {% endif %}
 
+        <!-- Add more details as needed -->
 
         <button onclick="location.href='/'">Home</button>
     </div>

@@ -20,6 +20,9 @@ from landing import views as landing_views
 from login import views as login_views
 from game import views as game_views
 from game import urls as game_urls
+from . import settings
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,3 +35,6 @@ urlpatterns = [
     path('', include(game_urls)),
     path('search/', game_views.genre_search)
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
