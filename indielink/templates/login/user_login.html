@@ -9,11 +9,11 @@
       height: 100vh;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
       background-image: url("https://static1.colliderimages.com/wordpress/wp-content/uploads/2021/07/indie-games.jpg");
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
+      margin: 0;
     }
 
     .container {
@@ -28,8 +28,9 @@
       text-align: center; /* Center the buttons */
     }
 
+    .button-container input,
     .button-container a {
-      display: inline-block; /* Make the buttons inline */
+      display: inline-block;
       width: 150px;
       padding: 10px;
       text-align: center;
@@ -38,10 +39,13 @@
       text-decoration: none;
       margin-bottom: 10px;
       border-radius: 5px;
+      margin-right: 10px; /* Add space between buttons */
+      border: none;
+      cursor: pointer;
     }
 
     .button-container a:last-child {
-      margin-bottom: 0;
+      margin-right: 0; /* Remove margin for the last button */
     }
   </style>
 </head>
@@ -49,11 +53,14 @@
   <div class="container">
     <form method="POST">{% csrf_token %}
       <table>
-        {{ login_form.as_table }}
-        <tr><td>
-          <input type="submit" value = "Login"/>
-        </td></tr>
+        {{ login_form.as_p }}
+        <div class="button-container">
+          <input type="submit" value="Login"/>
+          <a href="/signup/">Create Account</a>
+        </div>
       </table>
     </form>
   </div>
 </body>
+</html>
+

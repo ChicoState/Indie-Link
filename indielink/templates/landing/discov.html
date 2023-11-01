@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+ margin: 0px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7); /* Add this line for shadow */
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Added style for the "Home" button */
+li:first-child a {
+  font-weight: bold;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+.sidebar {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  background-color: #111;
+  overflow-y: auto;
+}
+
+.sidebar a {
+  padding: 16px;
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+
+.sidebar a:hover {
+  background-color: #04AA6D;
+}
+
+.content {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+.image-library {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image-item {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 125px;
+  text-align: center;
+  max-width: 110px;
+  max-height: 110px;
+}
+
+.image-item img {
+  max-width: 150px;
+  max-height: 150px;
+}
+</style>
+</head>
+<body>
+
+<!-- User Logged In -->
+{% if user.is_authenticated %}
+<ul>
+    <li><a href="">Home</a></li>
+    <li><a href="create_game/">Upload Games!</a></li>
+
+    <li style="float:right"><a class="logout-btn" href="/logout/">Logout</a></li>
+    <li style="float:right"><a href="">Profile</a></li>
+</ul>
+
+<!-- Users with profile can access game list -->
+<div class="sidebar">
+  <a href="game_list/">Game List</a>
+</div>
+
+<!-- User Not Logged in -->
+{% else %}
+<ul>
+  <li><a href="">Home</a></li>
+  <li><a href="/login/">Upload Games!</a></li>
+    
+  <li style="float:right"><a href="/signup/">Register</a></li>
+  <li style="float:right"><a href="/login/">Login</a></li>
+</ul>
+
+<!-- Don't allow users without profile to access game list -->
+<div class="sidebar">
+  <a href="#Placeholder">Section 1</a>
+</div>
+  
+{% endif %}
+
+<!-- Placeholder Games List (Should be populated via our database)-->
+<div class="content">
+  <h2>Welcome to Indie Link!</h2>
+  <p>Browse Games:</p>
+  <div class="image-library">
+    <div class="image-item">
+      <a href="https://www.fortnite.com/">
+        <img src="https://m.media-amazon.com/images/M/MV5BNzU2YTY2OTgtZGZjZi00MTAyLThlYjUtMWM5ZmYzOGEyOWJhXkEyXkFqcGdeQXVyNTgyNTA4MjM@._V1_FMjpg_UX1000_.jpg" alt="Fortnite">
+      </a>
+      <p>Fortnite Battle Royale</p>
+    </div>
+    <div class="image-item">
+      <a href="https://store.steampowered.com/app/250760/Shovel_Knight_Treasure_Trove/">
+        <img src="https://thumbnails.pcgamingwiki.com/b/b7/Shovel_Knight.jpg/300px-Shovel_Knight.jpg" alt="Shovel Knight">
+      </a>
+      <p>Shovel Knight: Treasure Trove</p>
+    </div>
+    <div class="image-item">
+        <img src="https://thumbnails.pcgamingwiki.com/9/9a/The_Finals_cover.jpg/450px-The_Finals_cover.jpg" alt="The Finals">
+        <p>The Finals</p>
+    </div>
+    <div class="image-item">
+        <img src="https://cdn1.epicgames.com/min/offer/1200x1600-1200x1600-e92fa6b99bb20c9edee19c361b8853b9.jpg" alt="Hades">
+        <p>Hades</p>
+    </div>
+    <div class="image-item">
+        <img src="https://cdn1.epicgames.com/offer/jaguar/SN_EpicPortrait_1200x1800-f5ebad930a2f6eb715579a056807033f" alt="Subnautica">
+        <p>Subnautica</p>
+    </div>
+    <div class="image-item">
+        <img src="https://images.gog-statics.com/bbb5faab1fac33585bf3fc08079b3b0e8a418be5a58fe2d65783301ce18723e5.jpg" alt="Inscryption">
+        <p>Inscryption</p>
+    </div>
+    <div class="image-item">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e1/The_Binding_of_Issac_Rebirth_cover.jpg/220px-The_Binding_of_Issac_Rebirth_cover.jpg" alt="The Binding of Isaac">
+        <p>The Binding of Issac: Rebirth</p>
+    </div>
+    <div class="image-item">
+        <img src="https://upload.wikimedia.org/wikipedia/en/9/9a/Among_Us_cover_art.jpg" alt="Amoung Us">
+        <p>Among Us</p>
+    </div>
+    <div class="image-item">
+        <img src="https://cdn.mobygames.com/covers/1201938-project-gotham-racing-3-xbox-360-manual.jpg" alt="PGR3">
+        <p>Project Gotham Racing 3</p>
+    </div>
+    <div class="image-item">
+        <img src="https://static.wikia.nocookie.net/dave-the-diver/images/3/30/Game-Page-Box-Art_DAVE-THE-DIVER-Initis.jpg/revision/latest?cb=20230329032616" alt="Dave The Diver">
+        <p>Dave The Diver</p>
+    </div>
+    <div class="image-item">
+        <img src="https://cdn1.epicgames.com/spt-assets/ce001255f950423d9afcb3074999dcdc/potion-craft-5kkbx.png" alt="Potion Craft">
+        <p>Potion Craft</p>
+    </div>
+    <div class="image-item">
+        <img src="https://upload.wikimedia.org/wikipedia/en/1/1a/Terraria_Steam_artwork.jpg" alt="Terraria">
+        <p>Terraria</p>
+    </div>
+    <div class="image-item">
+        <img src="https://static-cdn.jtvnw.net/ttv-boxart/Spin%20Rhythm%20XD.jpg" alt="Spin Rhythm XD">
+        <p>Spin Rhythm XD</p>
+    </div>
+    <div class="image-item">
+        <img src="https://m.media-amazon.com/images/M/MV5BOTBiNGQzMTktMDMzOS00MzIyLTg4YTUtZWY3MTY3YzBjMjZjXkEyXkFqcGdeQXVyMTA0MTM5NjI2._V1_.jpg" alt="Raft">
+        <p>Raft</p>
+    </div>
+    <div class="image-item">
+        <img src="https://www.gameinformer.com/sites/default/files/styles/product_box_art/public/2021/04/19/bce7dfa5/rust.jpg" alt="Rust">
+        <p>Rust</p>
+    </div>
+    <div class="image-item">
+        <img src="https://cdn-products.eneba.com/resized-products/FuK9pWCUbRPaRTEi76bPf4-g00SQAYC0Mkg7P6Utys4_350x200_3x-0.jpeg" alt="Factorio">
+        <p>Factorio</p>
+    </div>
+    <div class="image-item">
+        <img src="https://news.xbox.com/en-us/wp-content/uploads/sites/2/2023/03/dredge-dcf37c63015276de840f.jpg" alt="Dredge">
+        <p>Dredge</p>
+    </div>
+    <div class="image-item">
+        <img src="https://m.media-amazon.com/images/M/MV5BZWE2N2NjMzEtOTUwNS00YmRiLWJhNTctYThmZTY5MGIyNTc0XkEyXkFqcGdeQXVyNDEwNzI3ODE@._V1_.jpg" alt="Papers Please">
+        <p>Papers Please</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
