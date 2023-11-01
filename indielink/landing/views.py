@@ -2,4 +2,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def landingpage(request):
-    return render(request, 'landing/home.html')
+    return render(request, 'landing/discov.html')

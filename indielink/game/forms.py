@@ -1,6 +1,8 @@
 from django import forms
 from .models import Game, Genre
 
+# Comment out genres, migrate, uncomment
+
 genres = []
 for g in Genre.objects.all():
     genres.append((g.id, g.name))

@@ -32,3 +32,4 @@ urlpatterns = [
     path('', include(game_urls)),
     path('search/', game_views.genre_search)
 ]
+
