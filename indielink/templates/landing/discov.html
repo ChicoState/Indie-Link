@@ -124,12 +124,20 @@ li a:hover:not(.active) {
   <p>Browse Games:</p>
   <div class="image-library">
     {% for game in games %}
+      {% if game.cover_image %}
+        <div class="image-item">
+          <a href="{% url 'game_detail' game.id %}">
+            <img src="{{ game.cover_image.url }}" alt="Game Cover Image">
+          </a>
+          <p>{{ game.name }}</p>
+        </div>
+      {% else %}
       <div class="image-item">
         <a href="{% url 'game_detail' game.id %}">
-          <img src="{{ game.cover_image.url }}" alt="Game Cover Image">
+          <img src="https://blog.springshare.com/wp-content/uploads/2010/02/nc-md.gif" alt="Game Cover Image">
         </a>
         <p>{{ game.name }}</p>
-      </div>
+      {% endif %}
     {% endfor %}
   </div>
 </div>
