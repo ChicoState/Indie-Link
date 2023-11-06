@@ -2,48 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Landing Page</title>
-  <style>
-    body {
-      display: flex;
-      height: 100vh;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      background-image: url("https://static1.colliderimages.com/wordpress/wp-content/uploads/2021/07/indie-games.jpg");
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
-    }
-
-    .container {
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    .button-container {
-      margin-top: 20px;
-      text-align: center; /* Center the buttons */
-    }
-
-    .button-container a {
-      display: inline-block; /* Make the buttons inline */
-      width: 150px;
-      padding: 10px;
-      text-align: center;
-      background-color: #007bff;
-      color: #fff;
-      text-decoration: none;
-      margin-bottom: 10px;
-      border-radius: 5px;
-    }
-
-    .button-container a:last-child {
-      margin-bottom: 0;
-    }
-  </style>
+  <title>Game List</title>
+  {% load static %}
+  <link rel="stylesheet" href="{%static 'old.css' %}"/>
 </head>
 <body>
 <body>
@@ -64,7 +25,7 @@
         <button onclick="location.href='/create_game/'">Create a Game</button>
         <div>
           <button onclick="location.href='/search/'">Search By Genre</button>
-        </div>        
+        </div>
 
         <br>
         <!-- Button to delete all games for the logged-in user -->

@@ -1,6 +1,8 @@
 __pycache__/
 media/images/*.jpg
 *.jpg
+*.jpeg
+*.png
 *.py[cod]
 *.pyc
 
