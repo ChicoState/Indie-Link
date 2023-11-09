@@ -1,5 +1,6 @@
 # game/views.py
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import GameForm, GenreSearchForm
 from .models import Game, Genre
@@ -41,12 +42,31 @@ def genre_search(request):
         search_form = GenreSearchForm()
         return render(request, 'game/genre_search.html', {'search_form': search_form})
 
-@login_required
+
 def game_detail(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
+    if request.user.is_authenticated:
+        if request.user.favorite.filter(id = game_id).exists():
+            fav = True
+        else:
+            fav = False
+        return render(request, 'game/game_detail.html', {'game': game, 'fav':fav})
     return render(request, 'game/game_detail.html', {'game': game})
 
 def delete_games(request):
     # Delete all games associated with the currently logged-in user
     Game.objects.filter(user=request.user).delete()
     return redirect('game_list')
+
+def add_fav(request, game_id):
+    game = get_object_or_404(Game, pk=game_id)
+    user = request.user
+    user.favorite.add(game)
+    ##This won't keep scroll posistion
+    return HttpResponseRedirect("/game_detail/{game_id}/".format(game_id=game_id))
+
+def remove_fav(request, game_id):
+    game = get_object_or_404(Game, pk=game_id)
+    user = request.user
+    user.favorite.remove(game)
+    return HttpResponseRedirect("/game_detail/{game_id}/".format(game_id=game_id))

@@ -28,7 +28,13 @@
 
 
         <!-- Add more details as needed -->
-
+        {% if user.is_authenticated %}
+          {% if fav %}
+            <button onclick="location.href='/remove_fav/{{ game.id }}/'" class="button">Remove from Favorites</button>
+          {% else %}
+            <button onclick="location.href='/add_fav/{{ game.id }}/'" class="button">Add to Favorites</button>
+          {% endif %}
+        {% endif %}
         <button onclick="location.href='/'">Home</button>
     </div>
 </body>

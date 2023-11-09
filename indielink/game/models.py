@@ -17,7 +17,7 @@ class Game(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    genre = models.ManyToManyField(Genre)
+    genre = models.ManyToManyField(Genre, blank=True)
     description = models.TextField()
     release_status = models.CharField(
         max_length=20,
@@ -25,8 +25,7 @@ class Game(models.Model):
         default='In Development'
     )
     cover_image = models.ImageField(upload_to='images/', blank=True, null=True)
+    faved_by = models.ManyToManyField(User, related_name = 'favorite', blank=True)
 
     def __str__(self):
         return self.name
-
- 

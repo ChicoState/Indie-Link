@@ -62,6 +62,10 @@ li a:hover:not(.active) {
   background-color: #04AA6D;
 }
 
+.sidebar .selected {
+  background-color: #04AA6D;
+}
+
 .content {
   margin-left: 220px;
   padding: 20px;

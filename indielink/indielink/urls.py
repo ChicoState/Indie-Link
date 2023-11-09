@@ -27,13 +27,16 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', landing_views.landingpage),
+    path('favorites/', landing_views.favorites),
     path('signup/', login_views.signup),
     path('login/', login_views.user_login),
     path('logout/', login_views.user_logout),
     path('create_game/', game_views.create_game),
     path('game_list/', game_views.game_list),
     path('', include(game_urls)),
-    path('search/', game_views.genre_search)
+    path('search/', game_views.genre_search),
+    path('add_fav/<int:game_id>/', game_views.add_fav),
+    path('remove_fav/<int:game_id>/', game_views.remove_fav),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

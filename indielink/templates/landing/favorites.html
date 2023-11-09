@@ -8,34 +8,26 @@
 
 <div class="topbar">
 <ul>
-    <li><a href="">Home</a></li>
+    <li><a href="/">Home</a></li>
     <!-- Users who are not logged in cannot upload games -->
     {% if user.is_authenticated %}
     <li><a href="create_game/">Upload Games!</a></li>
-    <li style="float:right"><a class="logout-btn" href="/logout/">Logout</a></li>
-    <li style="float:right"><a href="">Profile</a></li>
     {% else %}
     <li><a href="/login/">Upload Games!</a></li>
-    <li style="float:right"><a href="/login/">Login</a></li>
-    <li style="float:right"><a href="/signup/">Register</a></li>    
     {% endif %}
+    <li style="float:right"><a class="logout-btn" href="/logout/">Logout</a></li>
+    <li style="float:right"><a href="">Profile</a></li>
 </ul>
 </div>
 
 <div class="sidebar">
-  <!-- Users with profile can access game list -->
-  {% if user.is_authenticated %}
-  <a href="game_list/">Game List</a>
-  <a href="favorites/">Your Favorites</a>
-  {% else %}
-  <a href="#Placeholder">Section 1</a>
-  {% endif %}
+  <a href="/game_list/">Game List</a>
+  <a class="selected">Your Favorites</a>
 </div>
 
 
 <div class="content">
-  <h2>Welcome to Indie Link!</h2>
-  <p>Browse Games:</p>
+  <h2>Your Favorites</h2>
   <div class="image-library">
     {% for game in games %}
         <div class="image-item">
