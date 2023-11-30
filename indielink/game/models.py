@@ -29,3 +29,7 @@ class Game(models.Model):
 
     def __str__(self):
         return self.name
+
+class GameImage(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    game_image = models.ImageField(upload_to='images/')
