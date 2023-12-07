@@ -25,7 +25,10 @@ def create_game(request):
 def edit_game(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
     if request.method == 'GET':
-        form = GameForm(instance=game)
+        defaults = {'name': game.name, 'description': game.description, 'release_status': game.release_status, 'cover_image': game.cover_image}
+        if game.genre:
+            defaults['genre'] = [g.pk for g in game.genre.all()] #prefill genre field with game's genres
+        form = GameForm(defaults, instance=game)
         return render(request, 'game/edit.html', {"game_form": form})
     elif request.method == 'POST':
         form = GameForm(request.POST,request.FILES)
