@@ -20,6 +20,7 @@ from landing import views as landing_views
 from login import views as login_views
 from game import views as game_views
 from game import urls as game_urls
+from profiles import views as profile_views
 from . import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -32,11 +33,13 @@ urlpatterns = [
     path('login/', login_views.user_login),
     path('logout/', login_views.user_logout),
     path('create_game/', game_views.create_game),
+    path('edit_game/<int:game_id>/', game_views.edit_game),
     path('game_list/', game_views.game_list),
     path('', include(game_urls)),
     path('search/', game_views.genre_search),
     path('add_fav/<int:game_id>/', game_views.add_fav),
     path('remove_fav/<int:game_id>/', game_views.remove_fav),
+    path('profile/',profile_views.profile),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

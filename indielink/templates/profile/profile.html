@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <style>
+        /* Add styles for the black bar */
+        .welcome-bar {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Add styles for the profile picture */
+        .profile-picture {
+            border: 2px solid black;
+            max-width: 200px; /* Adjust the size as needed */
+            max-height: 200px; /* Adjust the size as needed */
+        }
+    </style>
+</head>
+<body>
+    <!-- Black bar at the top with a welcome statement -->
+    <div class="welcome-bar">
+        <h1>Welcome, {{ username }}!</h1>
+    </div>
+
+    <!-- Profile information and form -->
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Email field -->
+            <label for="id_email">Email:</label>
+            <input type="text" name="email" id="id_email">
+
+            <!-- Phone number field -->
+            <label for="id_phone_number">Phone Number:</label>
+            <input type="text" name="phone_number" id="id_phone_number">
+
+            <!-- Image field -->
+            <label for="id_profile_picture">Profile Picture:</label>
+            <input type="file" name="profile_picture" id="id_profile_picture">
+
+            <input type="submit" value="Update Profile">
+        </form>
+
+        <!-- Profile picture with a black border -->
+        {% if profile_picture %}
+            <img src="{{ profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+        {% endif %}
+
+        <!-- User email and phone number -->
+        <!-- These will be empty as they are not part of the form -->
+        <p>Email: {{ form.email.value }}</p>
+        <p>Phone Number: {{ form.phone_number.value }}</p>
+    </div>
+
+    <!-- Add more profile information as needed -->
+
+    <!-- Home button -->
+    <button onclick="location.href='/'">Home</button>
+</body>
+</html>

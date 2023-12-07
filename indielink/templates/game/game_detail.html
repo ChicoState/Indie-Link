@@ -123,6 +123,9 @@
           {% else %}
             <button onclick="location.href='/add_fav/{{ game.id }}/'" class="button">Add to Favorites</button>
           {% endif %}
+          {% if user == game.user %}
+            <button onclick="location.href='/edit_game/{{ game.id }}/'" class="button">Edit Page</button>
+          {% endif %}
         {% endif %}
         <button onclick="location.href='/'">Home</button>
     </div>
