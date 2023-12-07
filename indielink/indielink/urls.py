@@ -20,6 +20,7 @@ from landing import views as landing_views
 from login import views as login_views
 from game import views as game_views
 from game import urls as game_urls
+from profiles import views as profile_views
 from . import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -37,6 +38,7 @@ urlpatterns = [
     path('search/', game_views.genre_search),
     path('add_fav/<int:game_id>/', game_views.add_fav),
     path('remove_fav/<int:game_id>/', game_views.remove_fav),
+    path('profile/',profile_views.profile),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
