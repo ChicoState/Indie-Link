@@ -22,6 +22,27 @@ def create_game(request):
     return render(request, 'game/create_game.html', page_data)
 
 @login_required
+def edit_game(request, game_id):
+    game = get_object_or_404(Game, pk=game_id)
+    if request.method == 'GET':
+        form = GameForm(instance=game)
+        return render(request, 'game/edit.html', {"game_form": form})
+    elif request.method == 'POST':
+        form = GameForm(request.POST,request.FILES)
+        form = GameForm(request.POST, files=request.FILES, instance=request.user)
+        if (form.is_valid()):
+            game.name = form.cleaned_data["name"]
+            game.genre.set(form.cleaned_data["genre"]) #m2m field needs to be set seperately from other fields
+            game.description = form.cleaned_data["description"]
+            game.release_status = form.cleaned_data["release_status"]
+            game.cover_image = form.cleaned_data["cover_image"]
+            game.save(update_fields = ['name', 'description', 'release_status', 'cover_image'])
+            return redirect('game_list')
+        else:
+            return render(request, 'game/edit.html', {"game_form": form})
+
+
+@login_required
 def game_list(request):
     games = Game.objects.all()
     return render(request, 'game/game_list.html', {'games': games})
