@@ -33,6 +33,7 @@ urlpatterns = [
     path('login/', login_views.user_login),
     path('logout/', login_views.user_logout),
     path('create_game/', game_views.create_game),
+    path('edit_game/<int:game_id>/', game_views.edit_game),
     path('game_list/', game_views.game_list),
     path('', include(game_urls)),
     path('search/', game_views.genre_search),
