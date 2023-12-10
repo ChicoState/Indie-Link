@@ -75,35 +75,22 @@ def genre_search(request):
 def game_detail(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
     game_images = GameImage.objects.filter(game=game)
+    form = CommentForm()
     if request.user.is_authenticated:
         if request.user.favorite.filter(id = game_id).exists():
             fav = True
         else:
             fav = False
-        return render(request, 'game/game_detail.html', {'game': game, 'fav':fav, 'game_images': game_images})
+        if request.method == 'POST':
+            filled_form = CommentForm(request.POST)
+            if filled_form.is_valid():
+                comment = filled_form.save(commit=False)
+                comment.game = game
+                comment.user = request.user
+                comment.save()
+        return render(request, 'game/game_detail.html', {'game': game, 'fav':fav, 'game_images': game_images, 'form': form})
     return render(request, 'game/game_detail.html', {'game': game, 'game_images': game_images})
 
-def post_detail(request, game_id):
-    game = get_object_or_404(Game, id=game_id)
-
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.game = game
-            comment.user = request.user
-            comment.save()
-
-            return redirect('game_detail', game_id=game.id)
-    else:
-        form = CommentForm()
-
-    # Handle the GET request case if needed
-    # For example, you might fetch existing comments for the game
-    # comments = Comment.objects.filter(game=game)
-    # Pass the comments to the template context if needed
-
-    return render(request, 'game/game_detail.html', {'game': game, 'form': form})
 
 def delete_games(request):
     # Delete all games associated with the currently logged-in user
@@ -130,4 +117,3 @@ def remove_fav(request, game_id):
     user = request.user
     user.favorite.remove(game)
     return HttpResponseRedirect("/game_detail/{game_id}/".format(game_id=game_id))
-
