@@ -72,6 +72,15 @@
       outline: none;
       z-index: 1;
     }
+
+    .comment-container {
+      width: 90%;
+      margin: 20px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      text-align: left;
+    }
     
     .prev {
       left: 100px;
@@ -128,6 +137,35 @@
           {% endif %}
         {% endif %}
         <button onclick="location.href='/'">Home</button>
+
+      <!-- Comment Section -->
+      <hr>
+      <div class="comment-container">
+        {% if user.is_authenticated %}
+        
+        <h1>Add Comment...</h1>
+        <form method="post" action="{% url 'game_detail' game.id %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Submit Comment</button>
+        </form>
+        {% endif %}
+
+        <h2>Comments</h2>
+        {% if not game.comments.all %} 
+          No Comments Yet 
+        {% else %} 
+        {% for comment in game.comments.all %} 
+        <strong>
+          {{ comment.user.username }} - {{ comment.date_added }}
+        </strong>
+        <br/>
+        {{ comment.body }}
+        <br />
+        <br />
+        <hr> 
+        {% endfor %} 
+        {% endif %}
     </div>
     <script>
       let idx = 1;

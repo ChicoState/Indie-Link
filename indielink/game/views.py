@@ -2,7 +2,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from .forms import GameForm, GenreSearchForm, GameImageForm
+from django.urls import reverse
+from .forms import GameForm, GenreSearchForm, GameImageForm, CommentForm
 from .models import Game, Genre, GameImage
 
 @login_required
@@ -82,6 +83,28 @@ def game_detail(request, game_id):
         return render(request, 'game/game_detail.html', {'game': game, 'fav':fav, 'game_images': game_images})
     return render(request, 'game/game_detail.html', {'game': game, 'game_images': game_images})
 
+def post_detail(request, game_id):
+    game = get_object_or_404(Game, id=game_id)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.game = game
+            comment.user = request.user
+            comment.save()
+
+            return redirect('game_detail', game_id=game.id)
+    else:
+        form = CommentForm()
+
+    # Handle the GET request case if needed
+    # For example, you might fetch existing comments for the game
+    # comments = Comment.objects.filter(game=game)
+    # Pass the comments to the template context if needed
+
+    return render(request, 'game/game_detail.html', {'game': game, 'form': form})
+
 def delete_games(request):
     # Delete all games associated with the currently logged-in user
     #Game.objects.filter(user=request.user).delete()
@@ -107,3 +130,4 @@ def remove_fav(request, game_id):
     user = request.user
     user.favorite.remove(game)
     return HttpResponseRedirect("/game_detail/{game_id}/".format(game_id=game_id))
+
