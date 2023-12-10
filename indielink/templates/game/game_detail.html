@@ -16,14 +16,26 @@
       background-size: cover;
     }
 
+    .background {
+      background-image: url('{{ game.cover_image.url }}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: flex;
+      height: 200vh;
+      align-items: center;
+      flex-direction: column;
+    }
+
     .container {
+      width: 50%;
       background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
+      margin: 30px;
       border-radius: 10px;
       text-align: center;
-      min-height: 100%;
     }
-    
+
     .button-container {
       margin-top: 20px;
       text-align: center;
@@ -92,7 +104,8 @@
   </style>
 </head>
 <body>
-    <div class="container">
+    <body class="background">
+      <div class="container">
         <h2>{{ game.name }}</h2>
 
         <!-- Display the cover image -->
@@ -190,5 +203,6 @@
         gallery[idx - 1].style.display = "block";
       }
     </script>
+  </div>
 </body>
 </html>
