@@ -4,7 +4,83 @@
   <meta charset="utf-8">
   <title>Landing Page</title>
   {% load static %}
-  <link rel="stylesheet" href="{%static 'old.css' %}"/>
+  {% comment %} <link rel="stylesheet" href="{%static 'old.css' %}"/> {% endcomment %}
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      background-image: url("https://static1.colliderimages.com/wordpress/wp-content/uploads/2021/07/indie-games.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      min-height: 100%;
+    }
+    
+    .button-container {
+      margin-top: 20px;
+      text-align: center;
+      padding: 0.5rem;
+    }
+    
+    .button-container a {
+      display: inline-block;
+      width: 150px;
+      padding: 10px;
+      text-align: center;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+    
+    .button-container a:last-child {
+      margin-bottom: 0;
+    }
+        
+    .image-container {
+      position: relative;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .Gallery {
+      max-width: 850px;
+      width: 100%;
+      margin: 10px;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      padding: 10px;
+      border: none;
+      outline: none;
+      z-index: 1;
+    }
+    
+    .prev {
+      left: 100px;
+    }
+    
+    .next {
+      right: 100px;
+    }    
+  </style>
 </head>
 <body>
     <div class="container">
@@ -26,6 +102,19 @@
         <p>Description: {{ game.description }}</p>
         <p>Created by: {{ game.user.username }}</p>
 
+        {% if game_images %}
+          <div class="image-container">
+            {% if game_images|length > 1 %}
+              <button class="prev" onclick="changeImage(-1)">❮</button>
+            {% endif %}
+            {% for image in game_images %}
+              <img class="Gallery" src="{{ image.game_image.url }}">
+            {% endfor %}
+            {% if game_images|length > 1 %}
+              <button class="next" onclick="changeImage(1)">❯</button>
+            {% endif %}
+          </div>
+        {% endif %}
 
         <!-- Add more details as needed -->
         {% if user.is_authenticated %}
@@ -40,5 +129,27 @@
         {% endif %}
         <button onclick="location.href='/'">Home</button>
     </div>
+    <script>
+      let idx = 1;
+      showImages(idx);
+
+      function changeImage(n) {
+        showImages(idx += n);
+      }
+
+      function showImages(n) {
+        const gallery = document.getElementsByClassName("Gallery");
+        if (n > gallery.length) {
+          idx = 1;
+        }
+        if (n < 1) {
+          idx = gallery.length;
+        }
+        for (let i = 0; i < gallery.length; i++) {
+          gallery[i].style.display = "none";
+        }
+        gallery[idx - 1].style.display = "block";
+      }
+    </script>
 </body>
 </html>

@@ -2,23 +2,27 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from .forms import GameForm, GenreSearchForm
-from .models import Game, Genre
+from .forms import GameForm, GenreSearchForm, GameImageForm
+from .models import Game, Genre, GameImage
 
 @login_required
 def create_game(request):
     if request.method == 'POST':
-        form = GameForm(request.POST,request.FILES)
-        if form.is_valid():
-            game = form.save(commit=False)
+        game_form = GameForm(request.POST, request.FILES)
+        image_form = GameImageForm(request.POST, request.FILES)
+        if game_form.is_valid() and image_form.is_valid():
+            game = game_form.save(commit=False)
             game.user = request.user
             game.save()
-            form.save_m2m()
+            game_form.save_m2m()
+            for image in request.FILES.getlist('images'):
+                GameImage.objects.create(game=game, game_image=image)
             return redirect('game_list')  # Redirect to 'game_list'
     else:
-        form = GameForm()
+        game_form = GameForm()
+        image_form = GameImageForm()
 
-    page_data = {"game_form": form}
+    page_data = {"game_form": game_form, 'image_form': image_form}
     return render(request, 'game/create_game.html', page_data)
 
 @login_required
@@ -69,17 +73,26 @@ def genre_search(request):
 
 def game_detail(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
+    game_images = GameImage.objects.filter(game=game)
     if request.user.is_authenticated:
         if request.user.favorite.filter(id = game_id).exists():
             fav = True
         else:
             fav = False
-        return render(request, 'game/game_detail.html', {'game': game, 'fav':fav})
-    return render(request, 'game/game_detail.html', {'game': game})
+        return render(request, 'game/game_detail.html', {'game': game, 'fav':fav, 'game_images': game_images})
+    return render(request, 'game/game_detail.html', {'game': game, 'game_images': game_images})
 
 def delete_games(request):
     # Delete all games associated with the currently logged-in user
-    Game.objects.filter(user=request.user).delete()
+    #Game.objects.filter(user=request.user).delete()
+    games = Game.objects.filter(user=request.user)
+    for game in games:
+        images = GameImage.objects.filter(game=game)
+        for image in images:
+            image.game_image.delete(save=False)
+        images.delete()
+        game.cover_image.delete()
+    games.delete()
     return redirect('game_list')
 
 def add_fav(request, game_id):
