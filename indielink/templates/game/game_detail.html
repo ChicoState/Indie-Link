@@ -144,9 +144,10 @@
         {% if user.is_authenticated %}
         
         <h1>Add Comment...</h1>
-        <form method="post" action="{% url 'game_detail' game.id %}">
+        <form method="post">
           {% csrf_token %}
-          {{ form.as_p }}
+          {{ form.body }}
+          <br>
           <button type="submit">Submit Comment</button>
         </form>
         {% endif %}
