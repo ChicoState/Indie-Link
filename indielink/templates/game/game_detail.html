@@ -101,6 +101,10 @@
     .next {
       right: 100px;
     }
+
+    li {
+      list-style: none;
+    }
   </style>
 </head>
 <body>
@@ -173,6 +177,7 @@
           {% csrf_token %}
           {{ form.body }}
           {{ form.body.errors}}
+          <br>
           <button type="submit">Submit Comment</button>
         </form>
         {% endif %}
