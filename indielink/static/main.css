@@ -90,3 +90,9 @@ li a:hover:not(.active) {
   max-width: 150px;
   max-height: 150px;
 }
+
+.profile-picture {
+  border: 2px solid black;
+  max-width: 200px; /* Adjust the size as needed */
+  max-height: 200px; /* Adjust the size as needed */
+}
