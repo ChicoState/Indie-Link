@@ -115,6 +115,18 @@
             {% endif %}
           </div>
         {% endif %}
+        {% if game.devpost_set.all %}
+          <h3>Development Blog</h3>
+          <!-- Display the list of blog post titles as hyperlinks -->
+            {% for post in game.devpost_set.all %}
+            <ol reversed>
+              <li>
+                <a href="{% url 'dev_post_detail' game_id=game.id post_id=post.id %}">{{ post.title }}</a>
+                <span style="margin-left: 10px; color: #777;">{{ post.created_at|date:"F d, Y" }}</span>
+              </li>
+            </ol>
+            {% endfor %}
+        {% endif %}
 
         <!-- Add more details as needed -->
         {% if user.is_authenticated %}
@@ -125,9 +137,11 @@
           {% endif %}
           {% if user == game.user %}
             <button onclick="location.href='/edit_game/{{ game.id }}/'" class="button">Edit Page</button>
+            <button onclick="location.href='/{{ game.id }}/create_dev_post/'" class="button">Create Dev Post</button>
           {% endif %}
         {% endif %}
         <button onclick="location.href='/'">Home</button>
+        
     </div>
     <script>
       let idx = 1;
@@ -150,6 +164,6 @@
         }
         gallery[idx - 1].style.display = "block";
       }
-    </script>
+      </script>
 </body>
 </html>

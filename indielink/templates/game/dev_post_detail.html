@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Blog Post Detail</title>
+  {% load static %}
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      background-image: url("https://static1.colliderimages.com/wordpress/wp-content/uploads/2021/07/indie-games.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      min-height: 100%;
+    }
+
+    .content-container {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .line-divider {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border-top: 1px solid #ccc;
+    }
+
+    .button-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .button-container button {
+      display: inline-block;
+      width: 150px;
+      padding: 10px;
+      text-align: center;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    {% if game.cover_image %}
+        <img src="{{ game.cover_image.url }}" alt="Game Cover Image" style="max-width:600px;width:100%">
+    {% else %}
+        <p>No cover image available.</p>
+    {% endif %}
+
+    <h2>{{ post.title }}</h2>
+
+    <div class="line-divider"></div>
+
+    <div class="content-container">
+      <div class="blog-content">
+        <p>{{ post.content }}</p>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button onclick="location.href='/game_detail/{{ post.game.id }}/'">Back to Game Detail</button>
+    </div>
+  </div>
+</body>
+</html>

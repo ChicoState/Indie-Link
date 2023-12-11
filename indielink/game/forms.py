@@ -1,5 +1,5 @@
 from django import forms
-from .models import Game, Genre, GameImage
+from .models import Game, Genre, GameImage, DevPost
 
 # Comment out genres, migrate, uncomment
 
@@ -30,3 +30,9 @@ class GameImageForm(forms.Form):
     class Meta:
         model = GameImage
         fields = ['game_image']
+
+class DevPostForm(forms.ModelForm):
+    class Meta:
+        model = DevPost
+        fields = ['title', 'content']
+

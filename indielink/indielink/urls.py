@@ -40,6 +40,9 @@ urlpatterns = [
     path('add_fav/<int:game_id>/', game_views.add_fav),
     path('remove_fav/<int:game_id>/', game_views.remove_fav),
     path('profile/',profile_views.profile),
+    path('<int:game_id>/create_dev_post/', game_views.create_dev_post),
+    path('<int:game_id>/edit_dev_post/<int:post_id>/', game_views.edit_dev_post),
+    path('<int:game_id>/dev_post/<int:post_id>/', game_views.dev_post_detail),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
