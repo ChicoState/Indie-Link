@@ -145,6 +145,7 @@
                 <a href="{% url 'dev_post_detail' game_id=game.id post_id=post.id %}">{{ post.title }}</a>
                 <span style="margin-left: 10px; color: #777;">{{ post.created_at|date:"F d, Y" }}</span>
               </li>
+              <br/>
             {% endfor %}
         {% endif %}
 
