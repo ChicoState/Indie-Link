@@ -2,7 +2,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from .forms import GameForm, GenreSearchForm, GameImageForm
+from django.urls import reverse
+from .forms import GameForm, GenreSearchForm, GameImageForm, CommentForm
 from .models import Game, Genre, GameImage
 
 @login_required
@@ -74,13 +75,22 @@ def genre_search(request):
 def game_detail(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
     game_images = GameImage.objects.filter(game=game)
+    form = CommentForm()
     if request.user.is_authenticated:
         if request.user.favorite.filter(id = game_id).exists():
             fav = True
         else:
             fav = False
-        return render(request, 'game/game_detail.html', {'game': game, 'fav':fav, 'game_images': game_images})
+        if request.method == 'POST':
+            filled_form = CommentForm(request.POST)
+            if filled_form.is_valid():
+                comment = filled_form.save(commit=False)
+                comment.game = game
+                comment.user = request.user
+                comment.save()
+        return render(request, 'game/game_detail.html', {'game': game, 'fav':fav, 'game_images': game_images, 'form': form})
     return render(request, 'game/game_detail.html', {'game': game, 'game_images': game_images})
+
 
 def delete_games(request):
     # Delete all games associated with the currently logged-in user

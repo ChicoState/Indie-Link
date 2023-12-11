@@ -1,5 +1,5 @@
 from django import forms
-from .models import Game, Genre, GameImage
+from .models import Game, Genre, GameImage, Comment
 
 # Comment out genres, migrate, uncomment
 
@@ -17,7 +17,7 @@ class GameForm(forms.ModelForm):
     ## TODO: Find a more intuitive selection method than checkboxes
     genre = forms.MultipleChoiceField(choices = genres, widget=forms.CheckboxSelectMultiple(), required=False)
     release_status = forms.ChoiceField(choices = RELEASE_STATUS_CHOICES, widget=forms.Select())
-    cover_image = forms.ImageField(required=False)
+    cover_image = forms.ImageField(required=True)
     class Meta:
         model = Game
         fields = ['name', 'genre', 'description', 'release_status', 'cover_image']
@@ -30,3 +30,8 @@ class GameImageForm(forms.Form):
     class Meta:
         model = GameImage
         fields = ['game_image']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']
