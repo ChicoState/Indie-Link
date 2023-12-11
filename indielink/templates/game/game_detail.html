@@ -141,12 +141,10 @@
           <h3>Development Blog</h3>
           <!-- Display the list of blog post titles as hyperlinks -->
             {% for post in game.devpost_set.all %}
-            <ol reversed>
               <li>
                 <a href="{% url 'dev_post_detail' game_id=game.id post_id=post.id %}">{{ post.title }}</a>
                 <span style="margin-left: 10px; color: #777;">{{ post.created_at|date:"F d, Y" }}</span>
               </li>
-            </ol>
             {% endfor %}
         {% endif %}
 

@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Blog Post Detail</title>
+  <title>Landing Page</title>
   {% load static %}
+  {% comment %} <link rel="stylesheet" href="{%static 'old.css' %}"/> {% endcomment %}
   <style>
     body, html {
       height: 100%;
@@ -15,31 +16,33 @@
       background-size: cover;
     }
 
+    .background {
+      background-image: url('{{ game.cover_image.url }}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: flex;
+      height: 200vh;
+      align-items: center;
+      flex-direction: column;
+    }
+
     .container {
+      width: 50%;
       background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
+      margin: 30px;
       border-radius: 10px;
       text-align: center;
-      min-height: 100%;
-    }
-
-    .content-container {
-      margin-top: 20px;
-      text-align: left;
-    }
-
-    .line-divider {
-      margin-top: 10px;
-      margin-bottom: 20px;
-      border-top: 1px solid #ccc;
     }
 
     .button-container {
       margin-top: 20px;
       text-align: center;
+      padding: 0.5rem;
     }
 
-    .button-container button {
+    .button-container a {
       display: inline-block;
       width: 150px;
       padding: 10px;
@@ -50,9 +53,58 @@
       margin-bottom: 10px;
       border-radius: 5px;
     }
+
+    .button-container a:last-child {
+      margin-bottom: 0;
+    }
+
+    .image-container {
+      position: relative;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .Gallery {
+      max-width: 850px;
+      width: 100%;
+      margin: 10px;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      padding: 10px;
+      border: none;
+      outline: none;
+      z-index: 1;
+    }
+
+    .comment-container {
+      width: 90%;
+      margin: 20px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    .prev {
+      left: 100px;
+    }
+
+    .next {
+      right: 100px;
+    }
   </style>
 </head>
 <body>
+  <body class="background">
   <div class="container">
     {% if game.cover_image %}
         <img src="{{ game.cover_image.url }}" alt="Game Cover Image" style="max-width:600px;width:100%">
@@ -74,5 +126,6 @@
       <button onclick="location.href='/game_detail/{{ post.game.id }}/'">Back to Game Detail</button>
     </div>
   </div>
+</body>
 </body>
 </html>
