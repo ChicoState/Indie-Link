@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .forms import GameForm, GenreSearchForm, GameImageForm, CommentForm
-from .models import Game, Genre, GameImage
+from .forms import GameForm, GenreSearchForm, GameImageForm, CommentForm, DevPostForm
+from .models import Game, Genre, GameImage, DevPost
 
 @login_required
 def create_game(request):
@@ -117,3 +117,40 @@ def remove_fav(request, game_id):
     user = request.user
     user.favorite.remove(game)
     return HttpResponseRedirect("/game_detail/{game_id}/".format(game_id=game_id))
+
+@login_required
+def create_dev_post(request, game_id):
+    game = get_object_or_404(Game, pk=game_id)
+    
+    if request.method == 'POST':
+        form = DevPostForm(request.POST)
+        if form.is_valid():
+            blog_post = form.save(commit=False)
+            blog_post.game = game
+            blog_post.save()
+            return redirect('game_detail', game_id=game_id)
+    else:
+        form = DevPostForm()
+
+    return render(request, 'game/create_dev_post.html', {'form': form, 'game': game})
+
+@login_required
+def edit_dev_post(request, game_id, post_id):
+    game = get_object_or_404(Game, pk=game_id)
+    post = get_object_or_404(DevPost, pk=post_id, game=game)
+
+    if request.method == 'POST':
+        form = DevPostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('game_detail', game_id=game_id)
+    else:
+        form = DevPostForm(instance=post)
+
+    return render(request, 'game/edit_dev_post.html', {'form': form, 'game': game, 'post': post})
+
+def dev_post_detail(request, game_id, post_id):
+    game = get_object_or_404(Game, pk=game_id)
+    post = get_object_or_404(DevPost, pk=post_id, game=game)
+    
+    return render(request, 'game/dev_post_detail.html', {'game': game, 'post': post})
