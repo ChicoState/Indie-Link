@@ -17,7 +17,7 @@ class GameForm(forms.ModelForm):
     ## TODO: Find a more intuitive selection method than checkboxes
     genre = forms.MultipleChoiceField(choices = genres, widget=forms.CheckboxSelectMultiple(), required=False)
     release_status = forms.ChoiceField(choices = RELEASE_STATUS_CHOICES, widget=forms.Select())
-    cover_image = forms.ImageField(required=False)
+    cover_image = forms.ImageField(required=True)
     class Meta:
         model = Game
         fields = ['name', 'genre', 'description', 'release_status', 'cover_image']
