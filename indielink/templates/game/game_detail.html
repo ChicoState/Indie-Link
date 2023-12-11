@@ -152,16 +152,16 @@
         <!-- Add more details as needed -->
         {% if user.is_authenticated %}
           {% if fav %}
-            <button onclick="location.href='/remove_fav/{{ game.id }}/'" class="button">Remove from Favorites</button>
+            <button onclick="location.href='/remove_fav/{{ game.id }}/'" class="button" name="rem">Remove from Favorites</button>
           {% else %}
-            <button onclick="location.href='/add_fav/{{ game.id }}/'" class="button">Add to Favorites</button>
+            <button onclick="location.href='/add_fav/{{ game.id }}/'" class="button" name="fav">Add to Favorites</button>
           {% endif %}
           {% if user == game.user %}
-            <button onclick="location.href='/edit_game/{{ game.id }}/'" class="button">Edit Page</button>
-            <button onclick="location.href='/{{ game.id }}/create_dev_post/'" class="button">Create Dev Post</button>
+            <button onclick="location.href='/edit_game/{{ game.id }}/'" class="button" name="edit">Edit Page</button>
+            <button onclick="location.href='/{{ game.id }}/create_dev_post/'" class="button" name="dev">Create Dev Post</button>
           {% endif %}
         {% endif %}
-        <button onclick="location.href='/'">Home</button>
+        <button onclick="location.href='/'" name="home">Home</button>
 
       <!-- Comment Section -->
       <hr>

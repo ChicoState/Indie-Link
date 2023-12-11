@@ -16,7 +16,7 @@
             <!-- Add other game details as needed -->
 
             <!-- Button to view game details -->
-            <button onclick="location.href='{% url 'game_detail' game.id %}'">View Details</button>
+            <button onclick="location.href='{% url 'game_detail' game.id %}'" name="details">View Details</button>
 
             <hr>
 
@@ -31,7 +31,7 @@
         <!-- Button to delete all games for the logged-in user -->
         <form method="post" action="{% url 'delete_games' %}">
             {% csrf_token %}
-            <input type="submit" value="Delete my Games">
+            <input type="submit" value="Delete my Games" id="delete">
         </form>
 
         <br>
