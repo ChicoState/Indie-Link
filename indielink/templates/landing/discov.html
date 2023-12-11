@@ -35,22 +35,25 @@
 
 <div class="content">
   <h2>Welcome to Indie Link!</h2>
-  <p>Browse Games:</p>
-  <div class="image-library">
-    {% for game in games %}
-        <div class="image-item">
-          <a href="{% url 'game_detail' game.id %}">
-            {% if game.cover_image %}
-            <img src="{{ game.cover_image.url }}" alt="Game Cover Image">
-            {% else %}
-            <img src="https://blog.springshare.com/wp-content/uploads/2010/02/nc-md.gif" alt="Game Cover Image">
-            {% endif %}
-          </a>
-          <p>{{ game.name }}</p>
-        </div>
-    {% endfor %}
-  </div>
+  {% for genre, genre_games in games_by_genre.items %}
+    {% if genre_games %}
+      <h3>{{ genre.name }} Games:</h3>
+      <div class="image-library">
+        {% for game in genre_games %}
+          <div class="image-item">
+            <a href="{% url 'game_detail' game.id %}">
+              {% if game.cover_image %}
+              <img src="{{ game.cover_image.url }}" alt="Game Cover Image">
+              {% else %}
+              <img src="https://blog.springshare.com/wp-content/uploads/2010/02/nc-md.gif" alt="Game Cover Image">
+              {% endif %}
+            </a>
+            <p>{{ game.name }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
 </div>
-
 </body>
 </html>
