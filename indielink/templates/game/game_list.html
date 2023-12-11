@@ -29,7 +29,7 @@
 
         <br>
         <!-- Button to delete all games for the logged-in user -->
-        <form method="post" action="{% url 'delete_games' game.id %}">
+        <form method="post" action="{% url 'delete_games' %}">
             {% csrf_token %}
             <input type="submit" value="Delete my Games" id="delete">
         </form>
