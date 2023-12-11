@@ -51,7 +51,7 @@ def edit_game(request, game_id):
 
 
 @login_required
-def game_list(request):
+def game_list(request): 
     games = Game.objects.all()
     return render(request, 'game/game_list.html', {'games': games})
 
